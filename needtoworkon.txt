@@ -1,0 +1,7 @@
+1. platform loading maybe
+2. sprite loading
+3. background scrolling
+4. directional bullets
+5. deaths
+6. levels
+7. corner collision
