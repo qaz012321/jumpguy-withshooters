@@ -14,6 +14,12 @@ public final class Const{
     public static final int MOVE_SPEED = 8; // player move speed
     public static final int STARTX = 30; // starting player X pos
     public static final int STARTY = GROUND - 130; // starting player Y pos
+    public static final int CHARW = 60;
+    public static final int CHARH = 60;
+    public static final int BULLET_HEIGHT = 6;
+    public static final int BULLET_WIDTH = 10;
+    public static final int BULLET_SPEED = 5;    
+    public static final int LEVEL1_LENGTH = 1200;
     
     private Const(){
     }

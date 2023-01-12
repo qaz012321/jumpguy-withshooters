@@ -1,4 +1,5 @@
 // platforms
+// inherits GameObject
 import java.awt.Color;
 import java.awt.Graphics;
 
