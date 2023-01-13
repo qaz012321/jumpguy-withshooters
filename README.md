@@ -3,7 +3,9 @@ idk
 
 **GamePlay Description:** rules, goals, levels(if applicable), UML class diagrams
 
-You are hallucinating and you want it to stop. Leave each place through a door to get to the next place
+You are hallucinating and you see a door on the other side of the room. You want the hallucinations to stop, and you think that the door might make you leave your hallucinations. Your goal is to leave each room through the door to get to the next room until you finally snap out of your hallucinations.
+OR
+You are hallucinating and are trapped in some sort of giant room with way too many platforms and way too many monsters. You want the hallucinations to stop, and you think that there may be a door at the other end of the room that will help you escape this surreal experience. Your goal is to reach the door in each room to get to the next room until you finally snap out of your hallucinations.
 
 E.g. moving character, moving enemies, stationary enemies, shooting/bullets, death zones, jumping & gravity, scrolling bg, point/score system, time system, levels, end zone, boss(maybe?), pausing(maybe?)
 
