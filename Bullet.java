@@ -16,9 +16,13 @@ public class Bullet extends GameObject{
     }    
 //------------------------------------------------------------------------------    
     @Override
-    public void draw(Graphics g){
+    public void draw(Graphics g){}
+    
+    public void draw(Camera cam, Graphics g){
+      if (cam.onScreen(this.getX(), this.getW())) {
         g.setColor(Color.BLACK);
-        g.fillRect(getX(), getY(), getW(), getH());    
+        g.fillRect(getX() - cam.anchorX(), getY(), getW(), getH());    
+      }
     }    
 //------------------------------------------------------------------------------    
     public void move(){

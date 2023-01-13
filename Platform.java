@@ -1,5 +1,4 @@
 // platforms
-// inherits GameObject
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -15,7 +14,7 @@ public class Platform extends GameObject {
     super(x,y,w,h);
     this.colour = c;
   }
-
+  
   // setters
   public void setC(Color newC) {
     this.colour = newC;
@@ -24,9 +23,12 @@ public class Platform extends GameObject {
   public Color getC() {
     return this.colour;
   }
-
-  public void draw(Graphics g){
-    g.setColor(this.colour);
-    g.fillRect(this.getX(), this.getY(), this.getW(), this.getH());
+  
+  public void draw(Camera cam, Graphics g){
+    if (cam.onScreen(this.getX(), this.getW())){
+      g.setColor(this.colour);
+      g.fillRect(this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH());
+    }
   }
+  public void draw(Graphics g){}
 }

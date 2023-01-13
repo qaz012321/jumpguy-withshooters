@@ -1,4 +1,5 @@
 // main java file that runs jpanel and jframe
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,18 +11,15 @@ public class GravityAndJumping {
   
   boolean leftHeld, rightHeld, downHeld, upHeld, spaceHeld, escpressed;
     
-  // game objects 
+  // game variables  
   int level = 1;
-  int playerCurrentX = 0;
-  int playerNewX = 0;
-  int playerXdifference = playerNewX - playerCurrentX;
-  // int playerOffsetY = 0; //not needed rn
-  
+  // game objects
   Character player = new Character(Const.STARTX, Const.STARTY, Const.CHARW, Const.CHARH, Const.MOVE_SPEED, Const.JUMP_SPEED);
   Ammo ammo = new Ammo();
+  Camera cam = new Camera(Const.STARTX);
   // make platforms for levels
   Platform[] platforms1 = {
-    new Platform(0,Const.GROUND,Const.LEVEL1_LENGTH,40,Color.GREEN),
+    new Platform(1,Const.GROUND,Const.STAGE1WIDTH,40,Color.GREEN),
     new Platform(200, 400, 100, 50, Color.BLUE),
     new Platform(400, 200, 100, 50, Color.BLUE),
     new Platform(150, 100, 100, 50, Color.BLUE),
@@ -30,12 +28,13 @@ public class GravityAndJumping {
     new Platform(700, 230, 50, 50, Color.RED),
     new Platform(800, 230, 50, 50, Color.ORANGE),
     new Platform(900, 230, 50, 50, Color.YELLOW),
-    new Platform(1000, 230, 80, 50, Color.GREEN)
+    new Platform(1000, 230, 83, 50, Color.GREEN),
+    new Platform(1500, 200, 300, 40, Color.PINK)
   };
   
 //------------------------------------------------------------------------------
   GravityAndJumping(){
-    gameWindow = new JFrame("Game Window");
+    gameWindow = new JFrame("prelim camera");
     gameWindow.setSize(Const.WIDTH,Const.HEIGHT);
     gameWindow.setMinimumSize(new Dimension(Const.WIDTH
                                               +Const.WIDTHOFFSET
@@ -70,14 +69,7 @@ public class GravityAndJumping {
           ammo.addBullet(player);
         }
         ammo.moveBullets();
-  
       }
-
-      // if (player.getX() > Const.WIDTH/2 && player.getX() < 1200 - Const.WIDTH/2) {
-      //   for (int p = 0; p < platforms.length; p++) {
-      //     platforms[p].setX(platforms[p].getX() + playerXdifference);
-      //   }
-      // }
       
       player.applyGravity();
       player.moveY(platforms1);
@@ -88,6 +80,7 @@ public class GravityAndJumping {
           }
         }
       }
+      cam.moveTo(player.getX());
     }
   }
 //------------------------------------------------------------------------------  
@@ -108,7 +101,7 @@ public class GravityAndJumping {
                spaceHeld = true;
             } 
             if (key == KeyEvent.VK_ESCAPE){
-                System.exit(0);
+              System.exit(0);
             }
         }
         public void keyReleased(KeyEvent e){ 
@@ -140,11 +133,15 @@ public class GravityAndJumping {
         @Override
         public void paintComponent(Graphics g){ 
           super.paintComponent(g); //required
-          player.draw(g);
+          player.draw(cam, g);
+          System.out.println(player.getX() + " " + (player.getX() + player.getW()) + " " + cam.anchorX());
+          // implement the movement for everything else (based on camera pos) here
           for (int p = 0; p < platforms1.length; p++) {
-            platforms1[p].draw(g);
+            platforms1[p].draw(cam, g);
           }
-          ammo.drawBullets(g);
+          ammo.drawBullets(cam, g);
+          g.setColor(Color.GRAY);
+          g.drawLine(platforms1[0].getX(),0,platforms1[0].getX(),Const.HEIGHT);
         }    
     }    
 //------------------------------------------------------------------------------

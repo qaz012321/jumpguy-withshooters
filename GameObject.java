@@ -1,5 +1,4 @@
 // abstract class for all game objects that are interactable by the user 
-// GameObject encapsulates Character, Bullet, Platform
 
 import java.awt.Graphics;
 

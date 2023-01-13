@@ -1,17 +1,20 @@
 import java.awt.Graphics;
 
 public class Ammo{
-    final int CARTRIDGE_SIZE = 50;    
     private Bullet[] bullets;
     
     Ammo(){
-        this.bullets = new Bullet[CARTRIDGE_SIZE];
+        this.bullets = new Bullet[Const.CLIP_SIZE];
+    }
+    
+    public Bullet[] getMag() {
+      return this.bullets;
     }
 //------------------------------------------------------------------------------      
-    public void drawBullets(Graphics g){
+    public void drawBullets(Camera cam, Graphics g){
         for (int i=0; i<this.bullets.length; i++){
             if (this.bullets[i] != null){
-                this.bullets[i].draw(g);
+                this.bullets[i].draw(cam, g);
             }
         }
     }
@@ -19,7 +22,7 @@ public class Ammo{
         for (int i=0; i<this.bullets.length; i++){
             if (this.bullets[i] != null){
                 this.bullets[i].move();
-                if (this.bullets[i].getX() > Const.WIDTH || this.bullets[i].getX() < 0){
+                if (this.bullets[i].getX() > Const.STAGE1WIDTH || this.bullets[i].getX() < 0){
                     this.removeBullet(i);
                 }
             }
