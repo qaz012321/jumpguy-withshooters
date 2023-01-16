@@ -1,3 +1,5 @@
+// camera class to show on screen only a portion of the entire stage
+
 public class Camera{
     private int x = Const.WIDTH/2;
     Camera(int x){

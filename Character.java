@@ -1,53 +1,27 @@
+// character class used to make a player character
+// inherits GameObject
+// Composed of an Ammo object and a Health object 
+
 import java.awt.Graphics;
 import java.awt.Color;
 
-public class Character extends GameObject {
-    private int xVel;
-    private int yVel;
-    private int moveSpeed;
+public class Character extends Damageable {
     private int jumpPower;
-    private String direction = "";
 //------------------------------------------------------------------------------    
-    Character(int x, int y, int width, int height, int speed, int jp){
-        super(x,y,width,height);
-        this.xVel = 0;
-        this.yVel = 0; 
-        this.moveSpeed = speed;
+    Character(int x, int y, int width, int height, int speed, int jp, String direction, Health hp){
+        super(x,y,width,height,speed,direction,hp);
         this.jumpPower = jp;
-        this.direction = "right";
     }
 //------------------------------------------------------------------------------
     // getters and setters for x and y velocity
-    public void setVelX(int xVel){
-        this.xVel = xVel;
+    public void setJumpPower(int newjp){
+        this.jumpPower = newjp;
     }
-    public int getVelX() {
-      return this.yVel;
+    public int getJumpPower() {
+      return this.jumpPower;
     }
-    public void setVelY(int yVel){
-        this.yVel = yVel;
-    }
-    public int getVelY(){
-      return this.yVel;
-    }
-    // getters and setters for the last faced direction
-    public void setDirection(String direction) {
-      this.direction = direction;
-    }
-    public String getDirection() {
-      return this.direction;
-    }
-//------------------------------------------------------------------------------    
-    public void draw(Graphics g){
-//        g.setColor(Color.red);
-//        g.fillRect(this.getX(), this.getY(), this.getW(), this.getH());
-//        g.setColor(Color.pink);
-//        if (this.getDirection().equals("left")) {
-//          g.fillRect(this.getX(), this.getY()+10, 20, 10);
-//        } else if (this.getDirection().equals("right")) {
-//          g.fillRect(this.getX()+40, this.getY()+10, 20, 10);
-//        }
-    }
+//------------------------------------------------------------------------------
+    public void draw(Graphics g){}
     public void draw(Camera cam, Graphics g){
       g.setColor(Color.red);
       g.fillRect(this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH());
@@ -61,18 +35,14 @@ public class Character extends GameObject {
 //--------------------
     public void moveLeft(Platform[] platforms){
       this.setDirection("left");
-      this.setX(this.getX() - this.moveSpeed);
+      this.setX(this.getX() - this.getSpeed());
       if (this.getX() < 0) {
         this.setX(0);
       }
       for (int p = 0; p < platforms.length; p++) {
         if (platforms[p] != null) {
           // checks if player "entered" a platform && is inside the platform && player top is above bottom of platform && player bottom is below top of platform
-          if (  (this.getX() < platforms[p].getX() + platforms[p].getW())  &&  
-              (this.getX() + this.getW() > platforms[p].getX())  &&  
-              (this.getY() < platforms[p].getY() + platforms[p].getH())  &&  
-              (this.getY() + this.getH() > platforms[p].getY())  ) 
-          {
+          if (this.collidesWith(platforms[p])) {
             this.setX(platforms[p].getX() + platforms[p].getW());
           }
         }
@@ -81,43 +51,15 @@ public class Character extends GameObject {
 //--------------------
     public void moveRight(Platform[] platforms){
       this.setDirection("right");
-      this.setX(this.getX() + this.moveSpeed);
+      this.setX(this.getX() + this.getSpeed());
       if (this.getX() + this.getW() > Const.STAGE1WIDTH) {
         this.setX(Const.STAGE1WIDTH - this.getW());
       }
       for (int p = 0; p < platforms.length; p++) {
         if (platforms[p] != null) {
           // checks if player "entered" a platform && is inside the platform && player top is above bottom of platform && player bottom is below top of platform
-          if (  ((this.getX() + this.getW()) > platforms[p].getX())  &&  
-              (this.getX() < (platforms[p].getX() + platforms[p].getW()))  &&  
-              (this.getY() < (platforms[p].getY() + platforms[p].getH()))  &&  
-              ((this.getY() + this.getH()) > platforms[p].getY())  ) 
-          {
+          if (this.collidesWith(platforms[p])) {
             this.setX(platforms[p].getX() - this.getW());
-          }
-        }
-      }
-    }
-//--------------------
-    public void applyGravity(){
-        this.yVel += Const.GRAVITY;
-    }
-//--------------------
-    public void moveY(Platform[] platforms){
-      this.setY(this.getY() + this.yVel);
-      for (int p = 0; p < platforms.length; p++) {
-        // checks if player "entered" a platform && is inside the platform && player left is left of platform right && player right is right of platform left
-        if (   (this.getY() + this.getH() >= platforms[p].getY())  &&  
-            (this.getY() < platforms[p].getY() + platforms[p].getH())  &&  
-            (this.getX() < platforms[p].getX() + platforms[p].getW())  &&  
-            (this.getX() + this.getW() > platforms[p].getX())   ) 
-        {
-          if (this.yVel >= 0) {
-            this.setY(platforms[p].getY() - this.getH());
-            this.yVel = 0;
-          } else {
-            this.setY(platforms[p].getY() + platforms[p].getH());
-            this.yVel = 0;
           }
         }
       }

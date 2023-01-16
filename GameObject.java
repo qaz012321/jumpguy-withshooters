@@ -1,4 +1,5 @@
 // abstract class for all game objects that are interactable by the user 
+// GameObject encapsulates Character, Bullet, Platform
 
 import java.awt.Graphics;
 
@@ -45,6 +46,17 @@ abstract class GameObject{
     }
     public void setH(int h){
         this.h = h;
+    }
+//------------------------------------------------------------------------------
+    public boolean collidesWith(GameObject object) {
+      if (  (this.x < object.getX() + object.getW())  &&  
+            (this.x + this.w > object.getX())  &&  
+            (this.y < object.getY() + object.getH())  &&  
+            (this.y + this.h > object.getY())  ) 
+      {
+        return true;
+      }
+      return false;
     }
 //------------------------------------------------------------------------------    
     // mandatory draw method so that we don't forget to draw the game object

@@ -1,4 +1,6 @@
+// explains direction of bullet and how to draw
 // inherits GameObject
+
 import java.awt.Graphics;
 import java.awt.Color;
 
