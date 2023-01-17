@@ -33,7 +33,7 @@ public class Enemy extends Damageable {
   public void move(Platform[] platforms){
     for (Platform p: platforms) {
       if (this.isCompletelyOnPlatform(p)) {
-        //
+        // if facing left (platforms)
         if (this.getDirection().equals("left")) {
           if (this.getX() - this.getSpeed() < p.getX()) {
             this.setX(p.getX());
@@ -41,7 +41,7 @@ public class Enemy extends Damageable {
           } else {
             this.setX(this.getX() - this.getSpeed());
           }
-        //
+        // if facing right (platforms)
         } else if (this.getDirection().equals("right")) {
           if (this.getX() + this.getW() + this.getSpeed() > p.getX() + p.getW()) {
             this.setX(p.getX() + p.getW() - this.getW());
@@ -60,8 +60,8 @@ public class Enemy extends Damageable {
     if (this.getX() < 0) {
       this.setX(0);
       this.setDirection("right");
-    } else if (this.getX() + this.getW() > platforms[0].getW()) { // assumes platforms[0] will always be length of the current stage
-      this.setX(platforms[0].getW()-this.getW());
+    } else if (this.getX() + this.getW() > Const.STAGE1WIDTH) { // assumes platforms[0] will always be length of the current stage
+      this.setX(Const.STAGE1WIDTH-this.getW());
       this.setDirection("left");
     }
     for (int p = 0; p < platforms.length; p++) {

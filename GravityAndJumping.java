@@ -8,6 +8,7 @@ public class GravityAndJumping {
   JFrame gameWindow;
   GamePanel gamePanel;   
   MyKeyListener keyListener; 
+  MyMouseListener mouseListener;
   
   boolean leftHeld, rightHeld, downHeld, upHeld, spaceHeld, escpressed;
     
@@ -21,14 +22,7 @@ public class GravityAndJumping {
   Camera cam = new Camera(Const.STARTX);
   // make platforms for levels
   Platform[] platforms1 = Const.PLATFORMS1;
-  Enemy[] enemies1 = {
-    new Enemy(700, Const.GROUND-40, 60, 40, 6, "left", new Health(10), 10),
-    new Enemy(400, Const.GROUND-20, 100, 20, 8, "right", new Health(100), 5),
-    new Enemy(1400, Const.GROUND-30, 30, 30, 6, "left", new Health(30), 10),
-    new Enemy(160, 60, 20, 40, 10, "left", new Health(20), 25),
-    new Enemy(1600, 195, 5, 5, 6, "right", new Health(200), 34),
-    new Enemy(300, -200, 100, 10, 5, "right", new Health(80), 10)
-  };
+  Enemy[] enemies1 = Const.ENEMIES1;
   
 //------------------------------------------------------------------------------
   GravityAndJumping(){
@@ -47,6 +41,9 @@ public class GravityAndJumping {
     
     keyListener = new MyKeyListener();
     gamePanel.addKeyListener(keyListener);
+    
+    mouseListener = new MyMouseListener();
+    gamePanel.addMouseListener(mouseListener);
     
     gameWindow.setVisible(true);    
   }
@@ -116,7 +113,10 @@ public class GravityAndJumping {
         }
         // apply gravity to enemies
         for (Enemy enemy: enemies1) {
-          
+            if (enemy != null) {
+                enemy.applyGravity();
+                enemy.moveY(platforms1);
+            }
         }
         // change where the camera is looking at
         cam.moveTo(player.getX());
@@ -144,7 +144,7 @@ public class GravityAndJumping {
               System.exit(0);
             }
             if (key == KeyEvent.VK_P){
-              System.out.println("x: " + player.getX() + " y: " + player.getY());
+              System.out.println("px: " + player.getX() + " py: " + player.getY());
             }
         }
         public void keyReleased(KeyEvent e){ 
@@ -165,6 +165,23 @@ public class GravityAndJumping {
         public void keyTyped(KeyEvent e){
         }           
     }    
+//------------------------------------------------------------------------------
+    // mouse inputs
+    public class MyMouseListener implements MouseListener{
+        public void mouseClicked(MouseEvent e){   // moves the box at the mouse location
+            int mouseX = e.getX();
+            int mouseY = e.getY();
+            System.out.println(mouseX + " " + mouseY);
+        }
+        public void mousePressed(MouseEvent e){   // MUST be implemented even if not used!
+        }
+        public void mouseReleased(MouseEvent e){  // MUST be implemented even if not used!
+        }
+        public void mouseEntered(MouseEvent e){   // MUST be implemented even if not used!
+        }
+        public void mouseExited(MouseEvent e){    // MUST be implemented even if not used!
+        }
+    }
 //------------------------------------------------------------------------------
     //draw everything
     public class GamePanel extends JPanel{

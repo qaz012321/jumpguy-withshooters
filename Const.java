@@ -33,7 +33,7 @@ public final class Const{
     public static final int SHOOTDELAY = 35; // how many frames before you can shoot again
     public static final int RELOADBARLENGTH = 50; // length of the yellow ammo refill bar
     
-    public static final int STAGE1WIDTH = 5000;
+    public static final int STAGE1WIDTH = 8500;
     
     // new Platform(x, y, w, h, color);
     public static final Platform[] PLATFORMS1 = {
@@ -44,6 +44,18 @@ public final class Const{
         new Platform(1340,350,100,20,Color.GREEN),
         new Platform(1580,300,100,20,Color.GREEN),
         new Platform(1820,250,500,20,Color.GREEN),
+        new Platform(2500,300,100,20,Color.GREEN),
+        new Platform(2800,250,500,20,Color.GREEN),
+        new Platform(3600,300,100,20,Color.GREEN),
+        new Platform(3840,350,100,20,Color.GREEN),
+        new Platform(4080,400,100,20,Color.GREEN),
+        new Platform(4320,450,100,20,Color.GREEN),
+        new Platform(4560,Const.GROUND,800,40,Color.GREEN),
+        new Platform(5600,Const.GROUND,800,40,Color.GREEN),
+        new Platform(6600,Const.GROUND,200,40,Color.GREEN),
+        new Platform(7000,Const.GROUND,200,40,Color.GREEN),
+        new Platform(7400,Const.GROUND,200,40,Color.GREEN),
+        new Platform(7800,Const.GROUND,800,40,Color.GREEN),
 //    new Platform(1000,Const.GROUND,600,40,Color.GREEN),
 //    new Platform(1800,Const.GROUND,200,40,Color.GREEN),
 //    new Platform(200, 400, 100, 50, Color.BLUE),
@@ -68,7 +80,14 @@ public final class Const{
         new Enemy(700, Const.GROUND-40, 60, 40, 6, "left", new Health(10), 10),
         new Enemy(400, Const.GROUND-20, 100, 20, 8, "right", new Health(100), 5),
         new Enemy(1400, Const.GROUND-30, 30, 30, 6, "left", new Health(30), 10),
-        new Enemy(1830, 230, 30, 30, 6, "right", new Health(30), 5),
+        new Enemy(2130, 150, 70, 70, 7, "right", new Health(100), 10),
+        new Enemy(3038, 150, 70, 70, 7, "right", new Health(100), 10),
+        new Enemy(4870, 400, 50, 50, 15, "right", new Health(30), 8),
+        new Enemy(5878, 400, 50, 50, 15, "left", new Health(30), 8),
+        new Enemy(6694, 400, 20, 20, 3, "left", new Health(10), 3),
+        new Enemy(7086, 400, 20, 20, 3, "right", new Health(10), 3),
+        new Enemy(7500, 400, 20, 20, 3, "left", new Health(10), 3),
+        new Enemy(8000, 400, 40, 80, 1, "left", new Health(20), 100),
 //    new Enemy(160, 60, 20, 40, 10, "left", new Health(20), 25),
 //    new Enemy(1600, 195, 5, 5, 6, "right", new Health(200), 34),
 //    new Enemy(300, -200, 100, 10, 5, "right", new Health(80), 10)
