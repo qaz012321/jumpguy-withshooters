@@ -16,14 +16,15 @@ public final class Const{
     public static final int MOVE_SPEED = 8; // player move speed
     public static final int CHARW = 30;
     public static final int CHARH = 30;
-    public static final int STARTX = 30; // starting player X pos
-    public static final int STARTY = GROUND - CHARH - 30; // starting player Y pos
+    public static final int STARTX = 50; // starting player X pos
+    public static final int STARTY = GROUND - CHARH - 40; // starting player Y pos
     public static final int GRAVITY = (((CHARH+CHARW)/2)/20); // acceleration of gravity
     public static final int JUMP_SPEED = -(17*((CHARH+CHARW)/2)/30); // player jump speed
     public static final int STARTHP = 100;
     public static final int IFRAMES = 10;
     
-    public static final int EMOVESPEED = 5;
+    public static final int TEXTSIZE = 30;
+    public static final Font TEXTFONT = new Font("Arial", Font.BOLD, TEXTSIZE);
     
     public static final int CLIP_SIZE = 100;    
     public static final int BULLET_HEIGHT = 6;
@@ -33,6 +34,7 @@ public final class Const{
     public static final int SHOOTDELAY = 35; // how many frames before you can shoot again
     public static final int RELOADBARLENGTH = 50; // length of the yellow ammo refill bar
     
+    public static final int STAGETIME = 120; // 120 seconds to complete each level
     public static final int STAGE1WIDTH = 8500;
     
     // new Platform(x, y, w, h, color);

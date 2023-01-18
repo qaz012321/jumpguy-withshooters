@@ -13,9 +13,14 @@ public class GravityAndJumping {
   boolean leftHeld, rightHeld, downHeld, upHeld, spaceHeld, escpressed;
     
   // game variables  
+  int framePeriod = Const.FRAME_PERIOD;
   int level = 1;
   int shootDelay = Const.SHOOTDELAY;
   int iFrameCount = Const.IFRAMES; // every 10 frames they are allowed to take damage again
+  long startTime = System.currentTimeMillis(); 
+  long currentTime = System.currentTimeMillis();
+  long elapsedTime = currentTime - startTime;
+  int timeLeftInSeconds = Const.STAGETIME-((int)elapsedTime/1000);
   // game objects
   Character player = new Character(Const.STARTX, Const.STARTY, Const.CHARW, Const.CHARH, Const.MOVE_SPEED, Const.JUMP_SPEED, "right", new Health(Const.STARTHP));
   Ammo ammo = new Ammo();
@@ -50,11 +55,16 @@ public class GravityAndJumping {
 //------------------------------------------------------------------------------  
   //main game loop
   public void run(){
-    while (true) {
+    while (level == 1) {
       gameWindow.repaint();
-      try {Thread.sleep(Const.FRAME_PERIOD);} catch(Exception e){}
+      try {Thread.sleep(framePeriod);} catch(Exception e){}
+      framePeriod = Const.FRAME_PERIOD;
       
-      if (level == 1) {
+      if (!player.isDead()) {
+        currentTime = System.currentTimeMillis();
+        elapsedTime = currentTime - startTime;
+        timeLeftInSeconds = Const.STAGETIME-((int)elapsedTime/1000);
+        
         // increase frame counters for shooting and iframes 
         shootDelay++;
         iFrameCount++;
@@ -72,13 +82,34 @@ public class GravityAndJumping {
           if (enemy != null) {
             if (iFrameCount >= Const.IFRAMES && player.getHP() > 0 && player.collidesWith(enemy)) {
               iFrameCount = 0;
-              if (player.getHP()-enemy.getDamage() < 0) {
+              if (player.getHP()-enemy.getDamage() <= 0) {
                 player.setHP(0);
+                framePeriod = 1000;
+                player.setVelY(-12);
+                player.isDead();
               } else {
                 player.setHP(player.getHP()-enemy.getDamage());
               }
             }
           }
+        }
+        // reduce player hp if they fall through the bottom of the screen
+        if (player.getY() > Const.HEIGHT) {
+          player.setHP(player.getHP()-20);
+          if (player.getHP() <= 0) {
+            framePeriod = 1000;
+            player.setVelY(-12);
+            player.isDead();
+          } else {
+            player.setX(Const.STARTX);
+            player.setY(Const.STARTY-100);
+          }
+        }
+        // set player hp to 0 if they run out of time
+        if (timeLeftInSeconds < 0) {
+          framePeriod = 1000;
+          player.setVelY(-12);
+          player.isDead();
         }
         // shoot a bullet from player if their ammo reload is done
         if (spaceHeld && shootDelay >= Const.SHOOTDELAY) {
@@ -90,7 +121,7 @@ public class GravityAndJumping {
         // remove all dead enemies from game
         for (int enemy = 0; enemy < enemies1.length; enemy++) {
           if (enemies1[enemy] != null) {
-            if (enemies1[enemy].getHP() <= 0) {
+            if (enemies1[enemy].isDead()) {
               enemies1[enemy] = null;
             }
           }
@@ -120,7 +151,13 @@ public class GravityAndJumping {
         }
         // change where the camera is looking at
         cam.moveTo(player.getX());
+      } else { // else (player is dead)
+        // make the ghost more and more transparent
       }
+    }
+    
+    while (level == 2) {
+      // code
     }
   }
 //------------------------------------------------------------------------------  
@@ -168,7 +205,7 @@ public class GravityAndJumping {
 //------------------------------------------------------------------------------
     // mouse inputs
     public class MyMouseListener implements MouseListener{
-        public void mouseClicked(MouseEvent e){   // moves the box at the mouse location
+        public void mouseClicked(MouseEvent e){   // gets the mouse coordinates
             int mouseX = e.getX();
             int mouseY = e.getY();
             System.out.println(mouseX + " " + mouseY);
@@ -217,6 +254,11 @@ public class GravityAndJumping {
           ammo.drawBullets(cam, g);
           // draw ammo refill bar
           ammo.draw(g);
+          // draw text
+          g.setColor(Color.BLACK);
+          g.setFont(Const.TEXTFONT);
+          g.drawString("Time:", Const.WIDTH-100, 40);
+          g.drawString(Integer.toString(timeLeftInSeconds), Const.WIDTH-87, 80);
           // draw line x=0
           g.setColor(Color.GRAY);
           g.drawLine(platforms1[0].getX(),0,platforms1[0].getX(),Const.HEIGHT);

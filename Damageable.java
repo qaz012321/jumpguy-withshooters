@@ -12,6 +12,7 @@ abstract class Damageable extends GameObject {
   private int moveSpeed;
   private String direction = "";
   private Health hp;
+  private boolean dead;
 //------------------------------------------------------------------------------    
   Damageable(){
     super();
@@ -19,6 +20,7 @@ abstract class Damageable extends GameObject {
     this.moveSpeed = 0;
     this.direction = "";
     this.hp = null;
+    this.dead = true;
   }
   Damageable(int x, int y, int width, int height, int speed, String direction, Health hp){
     super(x,y,width,height);
@@ -26,6 +28,7 @@ abstract class Damageable extends GameObject {
     this.moveSpeed = speed;
     this.direction = direction;
     this.hp = hp;
+    this.dead = false;
   }
 //------------------------------------------------------------------------------    
   public void setVelY(int yVel){
@@ -51,6 +54,14 @@ abstract class Damageable extends GameObject {
   }
   public void setHP(int newhp) {
     this.hp.setHealth(newhp); // calls setHealth from Health class
+  }
+  public boolean isDead() {
+    if (this.getHP() <= 0) {
+      this.dead = true;
+    } else {
+      this.dead = false;
+    }
+    return this.dead;
   }
 //------------------------------------------------------------------------------
   public Health HP() {

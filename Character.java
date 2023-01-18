@@ -34,45 +34,55 @@ public class Character extends Damageable {
     }
 //--------------------
     public void moveLeft(Platform[] platforms){
-      this.setDirection("left");
-      this.setX(this.getX() - this.getSpeed());
-      if (this.getX() < 0) {
-        this.setX(0);
-      }
-      for (int p = 0; p < platforms.length; p++) {
-        if (platforms[p] != null) {
-          // checks if player "entered" a platform && is inside the platform && player top is above bottom of platform && player bottom is below top of platform
-          if (this.collidesWith(platforms[p])) {
-            this.setX(platforms[p].getX() + platforms[p].getW());
+      if (!this.isDead()) {
+        this.setDirection("left");
+        this.setX(this.getX() - this.getSpeed());
+        if (this.getX() < 0) {
+          this.setX(0);
+        }
+        for (int p = 0; p < platforms.length; p++) {
+          if (platforms[p] != null) {
+            // checks if player "entered" a platform && is inside the platform && player top is above bottom of platform && player bottom is below top of platform
+            if (this.collidesWith(platforms[p])) {
+              this.setX(platforms[p].getX() + platforms[p].getW());
+            }
           }
         }
       }
     }
 //--------------------
     public void moveRight(Platform[] platforms){
-      this.setDirection("right");
-      this.setX(this.getX() + this.getSpeed());
-      if (this.getX() + this.getW() > Const.STAGE1WIDTH) {
-        this.setX(Const.STAGE1WIDTH - this.getW());
-      }
-      for (int p = 0; p < platforms.length; p++) {
-        if (platforms[p] != null) {
-          // checks if player "entered" a platform && is inside the platform && player top is above bottom of platform && player bottom is below top of platform
-          if (this.collidesWith(platforms[p])) {
-            this.setX(platforms[p].getX() - this.getW());
+      if (!this.isDead()) {
+        this.setDirection("right");
+        this.setX(this.getX() + this.getSpeed());
+        if (this.getX() + this.getW() > Const.STAGE1WIDTH) {
+          this.setX(Const.STAGE1WIDTH - this.getW());
+        }
+        for (int p = 0; p < platforms.length; p++) {
+          if (platforms[p] != null) {
+            // checks if player "entered" a platform && is inside the platform && player top is above bottom of platform && player bottom is below top of platform
+            if (this.collidesWith(platforms[p])) {
+              this.setX(platforms[p].getX() - this.getW());
+            }
           }
         }
       }
     }
 //--------------------
     public boolean isOnPlatform(Platform platform){
-      if ((this.getX() < platform.getX() + platform.getW())  &&  (this.getX() + this.getW() > platform.getX())) {
-        return (this.getY() + this.getH() == platform.getY());
+      if (!this.isDead()) {
+        if ((this.getX() < platform.getX() + platform.getW())  &&  (this.getX() + this.getW() > platform.getX())) {
+          return (this.getY() + this.getH() == platform.getY());
+        }
       }
-      return false;
+        return false;
     }
 //--------------------
-  public void jump() {
-    this.setVelY(Const.JUMP_SPEED);
-  }
+    public void jump() {
+      if (!this.isDead()) {
+        this.setVelY(Const.JUMP_SPEED);
+      }
+    }
+//--------------------
+//--------------------
 }
