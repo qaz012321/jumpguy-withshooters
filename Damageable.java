@@ -13,6 +13,7 @@ abstract class Damageable extends GameObject {
   private String direction = "";
   private Health hp;
   private boolean dead;
+  private String type = "";
 //------------------------------------------------------------------------------    
   Damageable(){
     super();
@@ -21,14 +22,16 @@ abstract class Damageable extends GameObject {
     this.direction = "";
     this.hp = null;
     this.dead = true;
+    this.type = "";
   }
-  Damageable(int x, int y, int width, int height, int speed, String direction, Health hp){
+  Damageable(int x, int y, int width, int height, int speed, String direction, Health hp, String type){
     super(x,y,width,height);
     this.yVel = 0;
     this.moveSpeed = speed;
     this.direction = direction;
     this.hp = hp;
     this.dead = false;
+    this.type = type;
   }
 //------------------------------------------------------------------------------    
   public void setVelY(int yVel){
@@ -63,29 +66,40 @@ abstract class Damageable extends GameObject {
     }
     return this.dead;
   }
+  public String getType(){
+    return this.type;
+  }
 //------------------------------------------------------------------------------
   public Health HP() {
     return this.hp; // just returns the Health object
   }
 //--------------------
   public void applyGravity(){
-    this.yVel += Const.GRAVITY;
+    if (!this.isDead()) {
+      this.yVel += Const.GRAVITY;
+    }
   }
 //--------------------
   public void moveY(Platform[] platforms){
-    this.setY(this.getY() + this.yVel);
-    for (int p = 0; p < platforms.length; p++) {
-      // checks if player "entered" a platform && is inside the platform && player left is left of platform right && player right is right of platform left
-      if (this.collidesWith(platforms[p])) {
-        if (this.yVel >= 0) { // if player is going down (falling)
-          this.setY(platforms[p].getY() - this.getH());
-          this.yVel = 0;
-        } else { // if player is going up (just jumped)
-          this.setY(platforms[p].getY() + platforms[p].getH());
-          this.yVel = 0;
+    if (!this.isDead()) {
+      this.setY(this.getY() + this.yVel);
+      for (int p = 0; p < platforms.length; p++) {
+        // checks if player "entered" a platform && is inside the platform && player left is left of platform right && player right is right of platform left
+        if (this.collidesWith(platforms[p])) {
+          if (this.yVel >= 0) { // if player is going down (falling)
+            this.setY(platforms[p].getY() - this.getH());
+            this.yVel = 0;
+          } else { // if player is going up (just jumped)
+            this.setY(platforms[p].getY() + platforms[p].getH());
+            this.yVel = 0;
+          }
         }
       }
     }
+  }
+//--------------------
+  public void moveY(){
+    this.setY(this.getY() + this.yVel);
   }
 //------------------------------------------------------------------------------    
     // mandatory draw method so that we don't forget to draw the game object

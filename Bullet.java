@@ -22,7 +22,7 @@ public class Bullet extends GameObject{
     
     public void draw(Camera cam, Graphics g){
       if (cam.onScreen(this.getX(), this.getW())) {
-        g.setColor(Color.BLACK);
+        g.setColor(Color.PINK);
         g.fillRect(getX() - cam.anchorX(), getY(), getW(), getH());    
       }
     }    
