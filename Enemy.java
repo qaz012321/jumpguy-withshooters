@@ -1,13 +1,17 @@
 // abstract class
 
-import java.awt.Graphics;
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 
 public class Enemy extends Damageable {
   private int contactDamage;
+  Image slimeEnemy = new ImageIcon("SlimeEnemy.png").getImage();
+  Image goblinEnemy = new ImageIcon("GoblinEnemy.png").getImage();
+  Image treeEnemy = new ImageIcon("TreeEnemy.png").getImage();
+  Image shieldEnemy = new ImageIcon("ShieldEnemy.png").getImage();
 //------------------------------------------------------------------------------
-  Enemy(int x, int y, int w, int h, int speed, String direction, Health hp, int cd) {
-    super(x, y, w, h, speed, direction, hp);
+  Enemy(int x, int y, int w, int h, int speed, String direction, Health hp, int cd, String type) {
+    super(x, y, w, h, speed, direction, hp, type);
     this.contactDamage = cd;
   }
 //------------------------------------------------------------------------------
@@ -20,13 +24,38 @@ public class Enemy extends Damageable {
 //------------------------------------------------------------------------------
   public void draw(Graphics g){}
   public void draw(Camera cam, Graphics g){
-    g.setColor(Color.BLACK);
-    g.fillRect(this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH());
-    g.setColor(Color.GRAY);
+    Graphics2D g2d = (Graphics2D)g;
+//    g.setColor(Color.BLACK);
+//    g.fillRect(this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH());
+//    g.setColor(Color.GRAY);
     if (this.getDirection().equals("left")) {
-      g.fillRect(this.getX() - cam.anchorX(), this.getY()+this.getH()/5, this.getW()/3, this.getH()/5);
+      //g.fillRect(this.getX() - cam.anchorX(), this.getY()+this.getH()/5, this.getW()/3, this.getH()/5);
+        if (this.getType().equals("slime")){
+          g2d.drawImage(slimeEnemy, this.getX() - cam.anchorX() + this.getW(), this.getY(), -this.getW(), this.getH(), null);
+        }
+        if (this.getType().equals("goblin")){
+          g2d.drawImage(goblinEnemy, this.getX() - cam.anchorX() + this.getW(), this.getY(), -this.getW(), this.getH(), null);
+        }
+        if (this.getType().equals("tree")){
+          g2d.drawImage(treeEnemy, this.getX() - cam.anchorX() + this.getW(), this.getY(), -this.getW(), this.getH(), null);
+        }
+        if (this.getType().equals("shield")){
+          g2d.drawImage(shieldEnemy, this.getX() - cam.anchorX() + this.getW(), this.getY(), -this.getW(), this.getH(), null);
+        }
     } else if (this.getDirection().equals("right")) {
-      g.fillRect(this.getX()+(2*this.getW()/3) - cam.anchorX() , this.getY()+this.getH()/5, this.getW()/3, this.getH()/5);
+      //g.fillRect(this.getX()+(2*this.getW()/3) - cam.anchorX() , this.getY()+this.getH()/5, this.getW()/3, this.getH()/5);
+        if (this.getType().equals("slime")){
+          g2d.drawImage(slimeEnemy, this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH(), null);
+        }
+        if (this.getType().equals("goblin")){
+          g2d.drawImage(goblinEnemy, this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH(), null);
+        }
+        if (this.getType().equals("tree")){
+          g2d.drawImage(treeEnemy, this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH(), null);
+        }
+        if (this.getType().equals("shield")){
+          g2d.drawImage(shieldEnemy, this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH(), null);
+        }
     }
   }
 //--------------------

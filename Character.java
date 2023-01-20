@@ -2,14 +2,15 @@
 // inherits GameObject
 // Composed of an Ammo object and a Health object 
 
-import java.awt.Graphics;
-import java.awt.Color;
+import java.awt.*;
+import javax.swing.*;
 
 public class Character extends Damageable {
     private int jumpPower;
+    Image ghost = new ImageIcon("ghost idle.png").getImage();
 //------------------------------------------------------------------------------    
-    Character(int x, int y, int width, int height, int speed, int jp, String direction, Health hp){
-        super(x,y,width,height,speed,direction,hp);
+    Character(int x, int y, int width, int height, int speed, int jp, String direction, Health hp, String type){
+        super(x,y,width,height,speed,direction,hp,type);
         this.jumpPower = jp;
     }
 //------------------------------------------------------------------------------
@@ -23,13 +24,18 @@ public class Character extends Damageable {
 //------------------------------------------------------------------------------
     public void draw(Graphics g){}
     public void draw(Camera cam, Graphics g){
-      g.setColor(Color.red);
-      g.fillRect(this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH());
-      g.setColor(Color.pink);
+      Graphics2D g2d = (Graphics2D)g;
+        
+//      g.setColor(Color.red);
+//      g.fillRect(this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH());
+//      g.setColor(Color.pink);
+      //g2d.drawImage(ghost, this.getX() - cam.anchorX() - 10, this.getY() - 20, 48, 49, null);
       if (this.getDirection().equals("left")) {
-        g.fillRect(this.getX() - cam.anchorX(), this.getY()+this.getH()/5, this.getW()/3, this.getH()/5);
+        //g.fillRect(this.getX() - cam.anchorX(), this.getY()+this.getH()/5, this.getW()/3, this.getH()/5);
+        g2d.drawImage(ghost, this.getX() - cam.anchorX() + 42, this.getY() - 20, -48, 49, null);
       } else if (this.getDirection().equals("right")) {
-        g.fillRect(this.getX()+(2*this.getW()/3) - cam.anchorX() , this.getY()+this.getH()/5, this.getW()/3, this.getH()/5);
+        //g.fillRect(this.getX()+(2*this.getW()/3) - cam.anchorX() , this.getY()+this.getH()/5, this.getW()/3, this.getH()/5);
+        g2d.drawImage(ghost, this.getX() - cam.anchorX() - 10, this.getY() - 20, 48, 49, null);
       }
     }
 //--------------------
@@ -75,14 +81,13 @@ public class Character extends Damageable {
           return (this.getY() + this.getH() == platform.getY());
         }
       }
-        return false;
+      return false;
     }
 //--------------------
-    public void jump() {
-      if (!this.isDead()) {
-        this.setVelY(Const.JUMP_SPEED);
-      }
+  public void jump() {
+    if (!this.isDead()) {
+      this.setVelY(Const.JUMP_SPEED);
     }
-//--------------------
+  }
 //--------------------
 }
