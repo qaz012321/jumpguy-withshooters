@@ -24,26 +24,34 @@ interactions**
 Y=Yes   M=Maybe/Unsure
 
 Collision           = Y
+
 Gravity/Jumping     = Y
 
-image rotation
-moving at an angle
+image rotation      = N
+
+moving at an angle  = N
 
 background scroll   = Y
+
 relative movement   = Y
+
 Fixed object        = Y
+
 animated character  = M
+
 Tracking time       = Y
+
 Array list          = M
 
-Tile based game
+Tile based game     = N
 
 mouse selection     = Y
+
 Shooting            = Y
 
 
 **Timeline**
 1st Draft - design, game plan    - Dec 25
 2nd Draft - functional code      - Jan 15
-Final - debug/testing            - Jan 20
+Final - debug/testing            - Jan 20-23
 
