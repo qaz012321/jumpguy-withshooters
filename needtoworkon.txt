@@ -1,7 +1,7 @@
-1. platform loading maybe
-2. sprite loading
-3. background scrolling
-4. directional bullets
-5. deaths
-6. levels
-7. corner collision
+1. platform loading maybe (done)
+2. sprite loading (done)
+3. background scrolling (done)
+4. directional bullets (nope)
+5. deaths (halfway there)
+6. levels (1/2)
+7. corner collision (nope)
