@@ -1,4 +1,5 @@
 // edit 1133 is working collision with no camera attempts
+// this is my really scuffed scrolling version of the game
 
 1. platform loading maybe
 2. sprite loading
