@@ -1,5 +1,7 @@
 // abstract class for all game objects that are interactable by the user 
-// GameObject encapsulates Character, Bullet, Platform
+// GameObject encapsulates Damageable and Platform
+// @author Daniel Liu & Galton Ma
+// @version Jan 22 2023 - 1.3.5
 
 import java.awt.Graphics;
 

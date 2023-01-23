@@ -1,8 +1,10 @@
 /*abstract class damageable (just for common methods/attributes
- * between Character and Enemy that are
- * too specific for GameObject)
- * and too specific for bullets
+ * between Character and Enemy that are too specific for GameObject
+ * and too specific for bullets)
  */
+// inherits GameObject
+// @author Daniel Liu & Galton Ma
+// @version Jan 22 2023 - 1.3.5
 
 import java.awt.Graphics;
 import java.awt.Color;
@@ -57,6 +59,12 @@ abstract class Damageable extends GameObject {
   }
   public void setHP(int newhp) {
     this.hp.setHealth(newhp); // calls setHealth from Health class
+  }
+  public void setMaxHP(int newmaxhp) {
+    this.hp.setMaxHealth(newmaxhp);
+  }
+  public int getMaxHP() {
+    return this.hp.getMaxHealth();
   }
   public boolean isDead() {
     if (this.getHP() <= 0) {

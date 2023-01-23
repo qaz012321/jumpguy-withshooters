@@ -1,13 +1,15 @@
 // character class used to make a player character
-// inherits GameObject
-// Composed of an Ammo object and a Health object 
+// inherits Damageable which inherits GameObject
+// Composed of a Health object 
+// @author Daniel Liu & Galton Ma
+// @version Jan 22 2023 - 1.3.5
 
 import java.awt.*;
 import javax.swing.*;
 
 public class Character extends Damageable {
     private int jumpPower;
-    Image ghost = new ImageIcon("ghost idle.png").getImage();
+    private Image ghost = new ImageIcon("ghost idle.png").getImage();
 //------------------------------------------------------------------------------    
     Character(int x, int y, int width, int height, int speed, int jp, String direction, Health hp, String type){
         super(x,y,width,height,speed,direction,hp,type);
@@ -26,16 +28,10 @@ public class Character extends Damageable {
     public void draw(Camera cam, Graphics g){
       Graphics2D g2d = (Graphics2D)g;
         
-//      g.setColor(Color.red);
-//      g.fillRect(this.getX() - cam.anchorX(), this.getY(), this.getW(), this.getH());
-//      g.setColor(Color.pink);
-      //g2d.drawImage(ghost, this.getX() - cam.anchorX() - 10, this.getY() - 20, 48, 49, null);
       if (this.getDirection().equals("left")) {
-        //g.fillRect(this.getX() - cam.anchorX(), this.getY()+this.getH()/5, this.getW()/3, this.getH()/5);
-        g2d.drawImage(ghost, this.getX() - cam.anchorX() + 42, this.getY() - 20, -48, 49, null);
+        g2d.drawImage(ghost, this.getX() - cam.anchorX() + 50, this.getY(), -49, 50, null);
       } else if (this.getDirection().equals("right")) {
-        //g.fillRect(this.getX()+(2*this.getW()/3) - cam.anchorX() , this.getY()+this.getH()/5, this.getW()/3, this.getH()/5);
-        g2d.drawImage(ghost, this.getX() - cam.anchorX() - 10, this.getY() - 20, 48, 49, null);
+        g2d.drawImage(ghost, this.getX() - cam.anchorX(), this.getY(), 49, 50, null);
       }
     }
 //--------------------
@@ -61,8 +57,8 @@ public class Character extends Damageable {
       if (!this.isDead()) {
         this.setDirection("right");
         this.setX(this.getX() + this.getSpeed());
-        if (this.getX() + this.getW() > Const.STAGE1WIDTH) {
-          this.setX(Const.STAGE1WIDTH - this.getW());
+        if (this.getX() + this.getW() > Const.STAGEWIDTH) {
+          this.setX(Const.STAGEWIDTH - this.getW());
         }
         for (int p = 0; p < platforms.length; p++) {
           if (platforms[p] != null) {

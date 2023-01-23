@@ -1,9 +1,11 @@
 // explains what to do with each bullet slot in the clip
+// @author Daniel Liu & Galton Ma
+// @version Jan 22 2023 - 1.3.5
 
 import java.awt.Graphics;
 import java.awt.Color;
 
-public class Ammo{
+public class Ammo {
     private Bullet[] bullets;
     private int reloadBarLength;
     
@@ -40,7 +42,7 @@ public class Ammo{
             if (this.bullets[i] != null){
                 this.bullets[i].move();
                 // check for bullets that have travelled off stage
-                if (this.bullets[i].getX() > Const.STAGE1WIDTH || this.bullets[i].getX() + this.bullets[i].getW() < 0){
+                if (this.bullets[i].getX() > Const.STAGEWIDTH || this.bullets[i].getX() + this.bullets[i].getW() < 0){
                     this.removeBullet(i);
                 } 
                 // check for collision with platforms

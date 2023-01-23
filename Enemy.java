@@ -1,14 +1,17 @@
-// abstract class
+// enemy class
+// inherits Damageable which inherits GameObject
+// @author Daniel Liu & Galton Ma
+// @version Jan 22 2023 - 1.3.5
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Enemy extends Damageable {
   private int contactDamage;
-  Image slimeEnemy = new ImageIcon("SlimeEnemy.png").getImage();
-  Image goblinEnemy = new ImageIcon("GoblinEnemy.png").getImage();
-  Image treeEnemy = new ImageIcon("TreeEnemy.png").getImage();
-  Image shieldEnemy = new ImageIcon("ShieldEnemy.png").getImage();
+  private Image slimeEnemy = new ImageIcon("SlimeEnemy.png").getImage();
+  private Image goblinEnemy = new ImageIcon("GoblinEnemy.png").getImage();
+  private Image treeEnemy = new ImageIcon("TreeEnemy.png").getImage();
+  private Image shieldEnemy = new ImageIcon("ShieldEnemy.png").getImage();
 //------------------------------------------------------------------------------
   Enemy(int x, int y, int w, int h, int speed, String direction, Health hp, int cd, String type) {
     super(x, y, w, h, speed, direction, hp, type);
@@ -89,8 +92,8 @@ public class Enemy extends Damageable {
     if (this.getX() < 0) {
       this.setX(0);
       this.setDirection("right");
-    } else if (this.getX() + this.getW() > Const.STAGE1WIDTH) { // assumes platforms[0] will always be length of the current stage
-      this.setX(Const.STAGE1WIDTH-this.getW());
+    } else if (this.getX() + this.getW() > Const.STAGEWIDTH) { // assumes platforms[0] will always be length of the current stage
+      this.setX(Const.STAGEWIDTH-this.getW());
       this.setDirection("left");
     }
     for (int p = 0; p < platforms.length; p++) {

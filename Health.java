@@ -1,4 +1,6 @@
 // class for the hp of entities (i.e. character, enemy)
+// @author Daniel Liu & Galton Ma
+// @version Jan 22 2023 - 1.3.5
 
 import java.awt.Graphics;
 import java.awt.Color;
@@ -21,6 +23,12 @@ public class Health {
   }
   public int getHealth() {
     return this.hp;
+  }
+  public void setMaxHealth(int newmaxhp) {
+    this.maxHP = newmaxhp;
+  }
+  public int getMaxHealth() {
+    return this.maxHP;
   }
   public void draw(Graphics g){}
   public void draw(Camera cam, Graphics g, int x, int y, int w, int h) {
